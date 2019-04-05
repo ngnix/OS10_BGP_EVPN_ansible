@@ -1,0 +1,5 @@
+site1-spine1 ansible_host=192.168.213.4 ansible_network_os="dellos10"
+
+
+[spine]
+site1-spine1
