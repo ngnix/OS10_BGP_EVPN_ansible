@@ -186,7 +186,7 @@ dellos_vxlan:
 
 dellos_vlt:
     domain: 1
-    backup_destination: 192.168.1.1
+    backup_destination: 192.168.211.175
     destination_type: ipv4
     discovery_intf: 1/1/1 
     vlt_mac: aa:bb:cc:dd:ee:ff

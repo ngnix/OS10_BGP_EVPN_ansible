@@ -3,8 +3,8 @@ dellos_system:
     hostname: site1-spine2
   
 dellos_bgp:
-    asn: 64540
-    router_id: 172.20.11.1
+    asn: 64541
+    router_id: 172.20.11.2
     best_path:
         as_path: multipath-relax
     bfd:
@@ -35,42 +35,42 @@ dellos_bgp:
               activate: true
               state: present
           state: present
-        - ip: 10.9.0.1
+        - ip: 10.9.0.13
+          description: U_site2-spine2
+          type: ipv4
+          remote_asn: 64641
+          peergroup: underlay
+          peergroup_state: present
+          admin: up
+          state: present
+        - ip: 10.9.0.15
+          description: U_site2-spine2
+          type: ipv4
+          remote_asn: 64641
+          peergroup: underlay
+          peergroup_state: present
+          admin: up
+          state: present
+        - ip: 10.9.0.9
           description: U_site2-spine1
           type: ipv4
-          remote_asn: 64640 
+          remote_asn: 64640
           peergroup: underlay
           peergroup_state: present
           admin: up
           state: present
-        - ip: 10.9.0.3
-          description: U_site2-spine1        
+        - ip: 10.9.0.11
+          description: U_site2-spine1
           type: ipv4
-          remote_asn: 64640 
+          remote_asn: 64640
           peergroup: underlay
           peergroup_state: present
           admin: up
           state: present
-        - ip: 10.9.0.5
-          description: U_site2-spine2
+        - ip: 10.11.0.0
+          description: U_site1-spine1
           type: ipv4
-          remote_asn: 64641
-          peergroup: underlay
-          peergroup_state: present
-          admin: up
-          state: present
-        - ip: 10.9.0.6
-          description: U_site2-spine2
-          type: ipv4
-          remote_asn: 64641
-          peergroup: underlay
-          peergroup_state: present
-          admin: up
-          state: present
-        - ip: 10.11.0.1
-          description: U_site1-spine2
-          type: ipv4
-          remote_asn: 64541
+          remote_asn: 64540
           peergroup: underlay
           peergroup_state: present
           admin: up
@@ -101,36 +101,36 @@ dellos_bgp:
 dellos_interface:
     loopback 0:
         desc: BGP-LOOPBACK0
-        ip_and_mask: 172.20.11.1/32
+        ip_and_mask: 172.20.11.2/32
     loopback 1:
         desc: HARDWARE_VXLAN
         ip_and_mask: 10.8.0.1/32
     ethernet 1/1/1:
-        desc: site1-spine2
+        desc: site1-spine1
         mtu: 9216
         switchport: False
         admin: up
     ethernet 1/1/2:
-        desc: site2-spine1
-        ip_and_mask: 10.9.0.0/31
+        desc: site2-spine2
+        ip_and_mask: 10.9.0.12/31
         mtu: 9216
         switchport: False
         admin: up
     ethernet 1/1/3:
-        desc: site2-spine2
-        ip_and_mask: 10.9.0.4/31
+        desc: site2-spine1
+        ip_and_mask: 10.9.0.8/31
         mtu: 9216
         switchport: False
         admin: up
     ethernet 1/1/4:
-        desc: site2-spine1
-        ip_and_mask: 10.9.0.2/31
+        desc: site2-spine2
+        ip_and_mask: 10.9.0.14/31
         mtu: 9216
         switchport: False
         admin: up
     ethernet 1/1/5:
-        desc: site2-spine2
-        ip_and_mask: 10.9.0.6/31
+        desc: site2-spine1
+        ip_and_mask: 10.9.0.11/31
         mtu: 9216
         switchport: False
         admin: up
@@ -145,8 +145,8 @@ dellos_interface:
         switchport: True
         admin: up
     vlan 111:
-        desc: eBGP_with_site1-spine2
-        ip_and_mask: 10.11.0.0/31
+        desc: eBGP_with_site1-spine1
+        ip_and_mask: 10.11.0.1/31
         mtu: 9216
         admin: up
 
@@ -166,12 +166,12 @@ dellos_vlan:
               state: present
         state: present
     vlan 111:
-        description: eBGP_with_site1-spine2
+        description: eBGP_with_site1-spine1
         state: present
 
 dellos_vxlan:
   nve_source_loopback: 1
-  anycast_gateway_mac: 11:22:33:44:55:66
+  anycast_gateway_mac: 00:22:33:44:55:66
   auto_evi: false
   virtual_network:
     - vni: 888
@@ -181,11 +181,12 @@ dellos_vxlan:
       rd: auto
       rt: auto
       anycast_gateway_ip: 172.17.17.1
+      ip: 172.17.17.252/24
       state: present
 
 dellos_vlt:
     domain: 1
-    backup_destination: 192.168.1.1
+    backup_destination: 192.168.211.174
     destination_type: ipv4
     discovery_intf: 1/1/1 
     vlt_mac: aa:bb:cc:dd:ee:ff
