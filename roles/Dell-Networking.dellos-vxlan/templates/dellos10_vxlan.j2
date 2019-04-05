@@ -66,6 +66,7 @@ interface vlan{{ virtual_network.vlan }}
  no virtual-network
  exit
         {% endif %}
+no interface virtual-network{{ virtual_network.vni }}
 no virtual-network {{ virtual_network.vni }}
       {% else %}
 virtual-network {{ virtual_network.vni }}
@@ -80,6 +81,15 @@ virtual-network {{ virtual_network.vni }}
         {% if virtual_network.vlan %}
 interface vlan{{ virtual_network.vlan }}
  virtual-network {{ virtual_network.vni }}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% for virtual_network in vxlan_vars.virtual_network %}
+      {% if virtual_network.ip is defined and virtual_network.vni is defined and virtual_network.anycast_gateway_ip is defined and virtual_network.state != "absent" %}
+        {% if virtual_network.vni and virtual_network.ip and virtual_network.anycast_gateway_ip %}
+interface virtual-network{{ virtual_network.vni }}
+ ip address {{ virtual_network.ip }}
+ ip virtual-router address {{ virtual_network.anycast_gateway_ip }}
         {% endif %}
       {% endif %}
     {% endfor %}

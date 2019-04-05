@@ -1,6 +1,6 @@
 ---
 dellos_system:
-    hostname: site1-spine1
+    hostname: site2-spine1
   
 dellos_bgp:
     asn: 64540
@@ -171,7 +171,7 @@ dellos_vlan:
 
 dellos_vxlan:
   nve_source_loopback: 1
-  anycast_gateway_mac: 00:22:33:44:55:66
+  anycast_gateway_mac: 11:22:33:44:55:66
   auto_evi: false
   virtual_network:
     - vni: 888
@@ -181,7 +181,6 @@ dellos_vxlan:
       rd: auto
       rt: auto
       anycast_gateway_ip: 172.17.17.1
-      ip: 172.17.17.251/24
       state: present
 
 dellos_vlt:
