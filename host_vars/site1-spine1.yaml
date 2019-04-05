@@ -59,7 +59,7 @@ dellos_bgp:
           peergroup_state: present
           admin: up
           state: present
-        - ip: 10.9.0.6
+        - ip: 10.9.0.7
           description: U_site2-spine2
           type: ipv4
           remote_asn: 64641
@@ -179,7 +179,7 @@ dellos_vxlan:
       vlan: 888
       evi: 888
       rd: auto
-      rt: auto
+      rt: 888:888
       anycast_gateway_ip: 172.17.17.1
       ip: 172.17.17.251/24
       state: present

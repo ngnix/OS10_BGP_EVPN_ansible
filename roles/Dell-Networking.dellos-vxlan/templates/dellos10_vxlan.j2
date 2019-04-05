@@ -53,7 +53,10 @@ evpn
   rd {{ virtual_network.rd }}
             {% endif %}
             {% if virtual_network.rt is defined and virtual_network.rt %}
-  route-target {{ virtual_network.rt }}
+  route-target {{ virtual_network.rt }} both
+            {% endif %}
+            {% if virtual_network.vni is defined and virtual_network.vni %}
+  vni {{ virtual_network.vni }}
             {% endif %}
           {% endif %}
         {% endif %}

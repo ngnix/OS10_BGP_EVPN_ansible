@@ -179,20 +179,20 @@ dellos_vxlan:
       vlan: 888
       evi: 888
       rd: auto
-      rt: auto
+      rt: 888:888
       anycast_gateway_ip: 172.17.17.1
       ip: 172.17.17.254/24
       state: present
 
 dellos_vlt:
-    domain: 1
+    domain: 2
     backup_destination: 192.168.211.176
     destination_type: ipv4
     discovery_intf: 1/1/1 
     vlt_mac: 00:bb:cc:dd:ee:ff
     vlt_peers:
         Po 1:
-            peer_lag: 1
+            peer_lag: 2
     state: present
 
 dellos_route_map:
